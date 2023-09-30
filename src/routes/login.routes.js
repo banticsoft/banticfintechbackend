@@ -6,6 +6,6 @@ import { loginSchema } from './../schemas/auth.schema'
 const router = Router();
 
 router.post("/signin", validateSchema(loginSchema), (loginController.AutenticarUsuario));
-router.get("/verify", loginController.verifyToken);
+router.get("/whoami", loginController.whoami);
 
 export default router;

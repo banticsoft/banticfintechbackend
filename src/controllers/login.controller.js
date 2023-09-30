@@ -23,7 +23,15 @@ const AutenticarUsuario = async(req, res)=>{
         }
 
         const respuesta = await loginRequest(user);
+
+        if (respuesta.data.token == ""){
+            //throw new Error("Datos incorrectos o token vencido");    
+            console.log("No tiene data")    
+            return res.status(500).send(['Datos incorrectos o token vencido']);
+        }
+
         res.cookie("token", respuesta.data.token);
+        console.log("el token tiene: ");
         console.log(respuesta.data.token);
 
         res.json({
@@ -38,7 +46,7 @@ const AutenticarUsuario = async(req, res)=>{
 }
 
 
-const verifyToken = async(req, res) => {
+const whoami = async(req, res) => {
     try {
         const {token} = req.cookies
         
@@ -73,5 +81,5 @@ function prueba(){
 
 export const methods = {
     AutenticarUsuario,
-    verifyToken
+    whoami
 };
