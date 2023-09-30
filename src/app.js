@@ -30,6 +30,14 @@ app.use(cookieParser());
 app.use("/api/v1/auth", loginRoutes);
 app.use("/api/v1/users", usersRoutes);
 
+app.get("/", (req, res) => {
+    res.send("Bienvenido a la Raiz - [Ruta no protegida]")
+});
+
+app.get("/prueba", (req, res) => {
+    res.send("Bienvenido a Prueba - [Ruta no protegida]")
+});
+
 app.use( (req, res, next) => {
     res.status(404).json({
         message: "ruta no encontrada"
