@@ -12,8 +12,8 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    //origin: ['http://127.0.0.1:5173', 'http://localhost:5173'],
-    origin: '*',
+    origin: ['http://127.0.0.1:5173', 'http://localhost:5173', 'http://localhost:3000'],
+    //origin: '*', 
     credentials: true //tambien vas a poder establecer las cookies
 }));
 
@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
     res.send("Bienvenido a la Raiz - [Ruta no protegida]")
 });
 
-app.get("/prueba", (req, res) => {
+app.get("/api/v1/prueba", (req, res) => {
     res.send("Bienvenido a Prueba - [Ruta no protegida]")
 });
 
