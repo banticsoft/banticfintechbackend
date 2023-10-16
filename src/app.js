@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import loginRoutes from "./routes/login.routes";
 import usersRoutes from "./routes/users.routes";
 import cookieParser from 'cookie-parser';
+import {version} from './../package.json'
 //import './database/database.js'; //Prueba
 import cors from 'cors'
 
@@ -31,11 +32,11 @@ app.use("/api/v1/auth", loginRoutes);
 app.use("/api/v1/users", usersRoutes);
 
 app.get("/", (req, res) => {
-    res.send("Bienvenido a la Raiz - [Ruta no protegida]")
+    res.send("Raiz del proyecto")
 });
 
-app.get("/api/v1/prueba", (req, res) => {
-    res.send("Bienvenido a Prueba - [Ruta no protegida]")
+app.get("/api/v1/version", (req, res) => {
+    res.send(`La version del producto es ${version}`)
 });
 
 app.use( (req, res, next) => {
