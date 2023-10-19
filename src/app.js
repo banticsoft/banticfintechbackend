@@ -3,6 +3,7 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import loginRoutes from "./routes/login.routes";
 import usersRoutes from "./routes/users.routes";
+import cobranzaRoutes from "./routes/cobranza.routes";
 import cookieParser from 'cookie-parser';
 import {version} from './../package.json'
 //import './database/database.js'; //Prueba
@@ -30,6 +31,7 @@ app.use(cookieParser());
 //Routes
 app.use("/api/v1/auth", loginRoutes);
 app.use("/api/v1/users", usersRoutes);
+app.use("/api/v1/cobranza", cobranzaRoutes);
 
 app.get("/", (req, res) => {
     res.send("Raiz del proyecto")

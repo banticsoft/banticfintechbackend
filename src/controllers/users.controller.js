@@ -99,7 +99,7 @@ const generarQR = async(req, res) => {
         const {cliente, amount} = req.body;
         console.log('esta entrando al metodo generar qr')
         console.log(token)
-        console.log(amount)
+        console.log(amount)    
 
         const user = {
             "accountCode": "123456", //opcional
@@ -108,7 +108,8 @@ const generarQR = async(req, res) => {
             "codClient": 1, //es el login
             "subCodCliente": "0", //opcional
             "singleUse": true, //por defecto
-            "expirationDate": "2023-09-30", //fecha por defecto de hoy (por lo pronto 1 mes)
+            //"expirationDate": dayjs.utc(new Date()).format("YYYY/MM/DD"), //fecha por defecto de hoy (por lo pronto 1 mes)
+            "expirationDate": "2023-10-31", //fecha por defecto de hoy (por lo pronto 1 mes)
             "clientNote": "prueba para generar qr",
             "codBank": 1,
             "codTransaction": "111222333" //opcional
