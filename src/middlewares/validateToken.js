@@ -4,7 +4,8 @@
 export const authRequired = (req, res, next) => {    
     //const token = req.headers.cookie;
     const { token } = req.cookies;
-
+    console.log("esta pasando el Middleware...")
+    console.log(token)
     if (!token) return res.status(401).json({ message: "No token, Authorization denied"});
 
     next();

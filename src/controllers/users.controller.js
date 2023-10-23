@@ -96,7 +96,7 @@ const deleteOneUser = async(req, res) => {
 const generarQR = async(req, res) => {
     try {
         const { token } = req.cookies;
-        const {cliente, amount} = req.body;
+        const {glosa, amount} = req.body;
         console.log('esta entrando al metodo generar qr')
         console.log(token)
         console.log(amount)    
@@ -110,7 +110,7 @@ const generarQR = async(req, res) => {
             "singleUse": true, //por defecto
             //"expirationDate": dayjs.utc(new Date()).format("YYYY/MM/DD"), //fecha por defecto de hoy (por lo pronto 1 mes)
             "expirationDate": "2023-10-31", //fecha por defecto de hoy (por lo pronto 1 mes)
-            "clientNote": "prueba para generar qr",
+            "clientNote": glosa,
             "codBank": 1,
             "codTransaction": "111222333" //opcional
             //pantalla de configuracion
