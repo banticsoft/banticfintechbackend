@@ -27,7 +27,7 @@ const AutenticarUsuario = async(req, res)=>{
         if (respuesta.data.token == ""){
             //throw new Error("Datos incorrectos o token vencido");    
             console.log("No tiene data")    
-            return res.status(500).send(['Datos incorrectos o token vencido']);
+            return res.status(400).send(['Datos incorrectos o token vencido']);
         }
 
         res.cookie("token", respuesta.data.token);
