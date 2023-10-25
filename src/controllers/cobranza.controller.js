@@ -1,8 +1,40 @@
 import { loginRequest } from './../api/auth.js'
-
+import { getConnection, sql, fqueries } from "../database";
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 dayjs.extend(utc)
+
+
+const getAllQRByUser = async(req, res)=>{
+    try { 
+        // const { id } = req.params;
+        const numeroParametros = 3;
+        const queryParams = req.query;
+        const { userName, fkCustomer, typeRequest } = queryParams;
+
+        var cantidadParametrosLlegada= Object.keys(queryParams).length;
+        
+        if (cantidadParametrosLlegada != numeroParametros){
+            return res.status(400).json({message: `Peticion erronea. Por favor la query solo debe tener ${numeroParametros} parametros`});
+        }
+
+        if (userName == undefined || fkCustomer == undefined || typeRequest == undefined) {
+            return res.status(400).json({message: "Peticion erronea. Por favor debe definir todos los campos"});
+        }
+        
+        const pool = await getConnection();
+        const result = await pool.request()
+            .input('userName', sql.VarChar, userName)
+            .input('fkCustomer', fkCustomer)
+            .input('typeRequest', sql.VarChar, typeRequest)
+            .query(fqueries.getAllQRByUser);
+        res.json({ status: "ok", data: result.recordset });
+    } catch (error) {
+        res.status(500);
+        res.send(error.message);
+    }
+    
+}
 
 
 const Verificar = async(req, res)=>{
@@ -45,5 +77,6 @@ const Verificar = async(req, res)=>{
 
 
 export const methods = {
-    Verificar
+    Verificar,
+    getAllQRByUser
 };

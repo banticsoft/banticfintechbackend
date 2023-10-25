@@ -7,7 +7,7 @@ import { authRequired } from './../middlewares/validateToken.js'
 const router = Router();
 
 router.get("/", (usersController.getAllUsers));
-router.post("/generarQR",authRequired, validateSchema(userGenerarQRSchema), (usersController.generarQR));
+router.post("/generarQR", authRequired, validateSchema(userGenerarQRSchema), (usersController.generarQR));
 router.get("/:id", (usersController.getOneUser));
 router.post("/", (usersController.createNewUser));
 router.put("/:id", (usersController.updateOneUser));

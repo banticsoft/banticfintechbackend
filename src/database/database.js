@@ -51,11 +51,12 @@ async function getConnectionLocal(){
 }
 
 
-//getConnection();
-//getConnectionLocal();
+// getConnection();
+// getConnectionLocal();
 
 
 module.exports = {
-    getConnectionLocal,
+    //getConnectionLocal,
+    getConnection,
     sql
 }

@@ -1,7 +1,8 @@
 import { getConnectionLocal } from "../database/database.js";
 import { encrypt, compare } from './../helpers/handleBcrypt.js'
-import { loginRequest } from './../api/auth.js'
+import { loginRequest, whoamiRequest } from './../api/auth.js'
 
+import axios from 'axios'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 dayjs.extend(utc)
@@ -48,18 +49,47 @@ const AutenticarUsuario = async(req, res)=>{
 
 const whoami = async(req, res) => {
     try {
-        const {token} = req.cookies
+        const { token } = req.cookies
+
+        const usuario = {
+            user: "",
+            password: "",
+            token
+        }
+
+        const usuario2 = {
+            idUser: 1,
+            nameUser: "ronel",
+            claveUser: null,
+            typeUser: "ADM",
+            idCustomer: 1,
+            customer: "PROESA",
+            idBank: 1,
+            codBank: "1111",
+            bank: "BNB",
+            codError: "0",
+            descError: ""
+        }
         
-        if (!token) return res.status(401).json({message: "Unauthorized"})
-
-        //const respuesta = await prueba();        
-
-        return res.json({
-            username: "ronel",
+        /* const API = 'https://banticfintechapi.azurewebsites.net'
+        const respuesta = await axios.get(`${API}/api/MixQR/getFBUserData`, usuario, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         });
+
+        if (respuesta.codError == "0"){  
+            return res.json({
+                username: "ronel 1231",
+            });                    
+        }  */
+        let { idUser, nameUser, typeUser, idCustomer, customer, idBank, codBank, bank } = usuario2;
+        
+        return res.json({ idUser, nameUser, typeUser, idCustomer, customer, idBank, codBank, bank });   
+        //return res.status(400).send([respuesta.descError]);
     } catch (error) {
         console.log(error);
-        res.status(401).json({message: "Unauthorized"})
+        res.status(401).json({message: "No esta habilitado el cliente"})
     }
 }
 

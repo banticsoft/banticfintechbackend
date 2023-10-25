@@ -6,7 +6,9 @@ import { authRequired } from './../middlewares/validateToken.js'
 
 const router = Router();
 
-router.post("/verificar",authRequired, cobranzaController.Verificar);
+router.post("/verificar", authRequired, cobranzaController.Verificar);
+router.get("/getAllQR", authRequired, cobranzaController.getAllQRByUser);
+//router.get("/getAllQR", authRequired, cobranzaController.getAllQRByUser);
 //router.post("/generarQR",authRequired, validateSchema(userGenerarQRSchema), (usersController.generarQR));
 
 export default router;
