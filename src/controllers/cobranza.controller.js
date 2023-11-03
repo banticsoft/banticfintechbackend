@@ -11,6 +11,10 @@ const getAllQRByUser = async(req, res)=>{
         const numeroParametros = 3;
         const queryParams = req.query;
         const { userName, fkCustomer, typeRequest } = queryParams;
+        console.log("me esta llegando al servidor")
+        console.log(userName)
+        console.log(fkCustomer)
+        console.log(typeRequest)
 
         var cantidadParametrosLlegada= Object.keys(queryParams).length;
         

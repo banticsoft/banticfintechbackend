@@ -5,6 +5,7 @@ import { loginRequest, whoamiRequest } from './../api/auth.js'
 import axios from 'axios'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
+import { json } from "express";
 dayjs.extend(utc)
 
 
@@ -31,14 +32,22 @@ const AutenticarUsuario = async(req, res)=>{
             return res.status(400).send(['Datos incorrectos o token vencido']);
         }
 
+
         res.cookie("token", respuesta.data.token);
         console.log("el token tiene: ");
         console.log(respuesta.data.token);
 
-        res.json({
-            username
-        });
+        //whoami
+        const respuestaWhoami = await whoamiByToken(respuesta.data.token);
+        let { codError } = respuestaWhoami;
+
+        /* if (codError == "0"){
+            return res.json({ ...respuestaWhoami });                     
+        } */
+
+        return res.json({ ...respuestaWhoami }); 
     } catch (error) {  
+        console.log(error)
         const errors = ['el usuario o la contraseña son invalidos']  
         res.status(500);
         res.send(errors);
@@ -55,41 +64,56 @@ const whoami = async(req, res) => {
             user: "",
             password: "",
             token
-        }
-
-        const usuario2 = {
-            idUser: 1,
-            nameUser: "ronel",
-            claveUser: null,
-            typeUser: "ADM",
-            idCustomer: 1,
-            customer: "PROESA",
-            idBank: 1,
-            codBank: "1111",
-            bank: "BNB",
-            codError: "0",
-            descError: ""
-        }
+        }        
         
-        /* const API = 'https://banticfintechapi.azurewebsites.net'
-        const respuesta = await axios.get(`${API}/api/MixQR/getFBUserData`, usuario, {
+        const API = 'https://banticfintechapi.azurewebsites.net'
+        const respuesta = await axios.post(`${API}/api/MixQR/getFBUserData`, usuario, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        // console.log(respuesta.data)
+        let { idUser, nameUser, typeUser, idCustomer, customer, idBank, codBank, bank, codError } = respuesta.data;
+
+        if (codError == "0"){  
+            return res.json({ idUser, nameUser, typeUser, idCustomer, customer, idBank, codBank, bank });                     
+        } 
+        
+        //return res.json({ idUser, nameUser, typeUser, idCustomer, customer, idBank, codBank, bank });   
+        return res.status(400).send([respuesta.descError]);
+    } catch (error) {
+        console.log(error);
+        res.status(401).json({message: "No esta habilitado el cliente"})
+    }
+}
+
+
+const whoamiByToken = async(token) => {
+    try {
+
+        const usuario = {
+            user: "",
+            password: "",
+            token
+        }       
+        
+        const API = 'https://banticfintechapi.azurewebsites.net'
+        const respuesta = await axios.post(`${API}/api/MixQR/getFBUserData`, usuario, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
 
-        if (respuesta.codError == "0"){  
-            return res.json({
-                username: "ronel 1231",
-            });                    
-        }  */
-        let { idUser, nameUser, typeUser, idCustomer, customer, idBank, codBank, bank } = usuario2;
-        
-        return res.json({ idUser, nameUser, typeUser, idCustomer, customer, idBank, codBank, bank });   
-        //return res.status(400).send([respuesta.descError]);
+        let { idUser, nameUser, typeUser, idCustomer, customer, idBank, codBank, bank, codError } = respuesta.data;
+
+        if (codError == "0"){  
+            return { idUser, nameUser, typeUser, idCustomer, customer, idBank, codBank, bank, codError };                     
+        } 
+         
+        return { codError: 1, message: respuesta.descError };
     } catch (error) {
         console.log(error);
-        res.status(401).json({message: "No esta habilitado el cliente"})
+        return {codError: 1, message: "No esta habilitado el cliente"};
     }
 }
 

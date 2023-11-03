@@ -96,12 +96,13 @@ const deleteOneUser = async(req, res) => {
 const generarQR = async(req, res) => {
     try {
         const { token } = req.cookies;
-        const {glosa, amount} = req.body;
+        const { glosa, amount, user } = req.body;
         console.log('esta entrando al metodo generar qr')
         console.log(token)
-        console.log(amount)    
+        console.log(amount)  
+        console.log(user)
 
-        const user = {
+        const usuario = {
             "accountCode": "123456", //opcional
             "currency": "BOB", //por defecto
             "amount": amount,
@@ -109,15 +110,16 @@ const generarQR = async(req, res) => {
             "subCodCliente": "0", //opcional
             "singleUse": true, //por defecto
             //"expirationDate": dayjs.utc(new Date()).format("YYYY/MM/DD"), //fecha por defecto de hoy (por lo pronto 1 mes)
-            "expirationDate": "2023-10-31", //fecha por defecto de hoy (por lo pronto 1 mes)
+            "expirationDate": "2023-11-30", //fecha por defecto de hoy (por lo pronto 1 mes)
             "clientNote": glosa,
             "codBank": 1,
-            "codTransaction": "111222333" //opcional
+            "codTransaction": "111222333", //opcional
+            "user": user == undefined ? 'invitado' : user
             //pantalla de configuracion
         }
 
         const API = 'https://banticfintechapi.azurewebsites.net'
-        const respuesta = await axios.post(`${API}/api/MixQR//getQRImage`, user, {
+        const respuesta = await axios.post(`${API}/api/MixQR//getQRImage`, usuario, {
             headers: {
                  Authorization: `Bearer ${token}`
             }
@@ -133,6 +135,60 @@ const generarQR = async(req, res) => {
     }
 }
 
+const verificarQR = async(req, res) => {
+    try {
+
+        const { token } = req.cookies;
+        const { qrId, codBank, user } = req.body;
+        console.log("me esta llegando al servidor")
+        console.log(qrId)
+        console.log(codBank)
+        console.log(user)
+
+        const inputReceiveNotificationBNB = {
+            "qrId":qrId, 
+            "gloss":"Prueba", 
+            "sourceBankId": 1, 
+            "originName":"JUAN PEREZ", 
+            "voucherId":"1258s85s4ba", 
+            "transactionDateTime":"2023-08-24T02:03:02.684Z",
+            "additionalData":"notificado" 
+        }    
+
+        const API = 'https://banticfintechapi.azurewebsites.net'
+        const respuestaReceiveNotificationBNB = await axios.post(`${API}/api/MixQR/ReceiveNotificationBNB`, inputReceiveNotificationBNB, {
+            headers: {
+                 Authorization: `Bearer ${token}`
+            }
+        });
+
+        if (respuestaReceiveNotificationBNB.data.success == true){
+
+            const inputGetNotification = {
+                "qrId": qrId,
+                "accountCode": "11111",
+                "codClient": 1,
+                "codBank": codBank,
+                "codTransaction": "11111",
+                "user": user
+            }
+
+            const respuestaGetNotification = await axios.post(`${API}/api/MixQR/GetNotification`, inputGetNotification, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }                
+            });
+            return res.json(respuestaGetNotification.data);
+        }
+
+        res.json(['ha ocurrido un error en la solicitud']);
+    } catch (error) {
+        console.log(error)
+        res.status(500);
+        res.send(error.message);
+    }
+}
+
 export const methods = {
     getAllUsers,
     getOneUser,
@@ -140,4 +196,5 @@ export const methods = {
     updateOneUser,
     deleteOneUser,
     generarQR,
+    verificarQR,
 };

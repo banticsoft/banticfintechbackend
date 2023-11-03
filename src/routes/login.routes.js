@@ -7,6 +7,6 @@ import { authRequired } from './../middlewares/validateToken.js'
 const router = Router();
 
 router.post("/signin", validateSchema(loginSchema), (loginController.AutenticarUsuario));
-router.get("/whoami", authRequired, loginController.whoami);
+router.post("/whoami", authRequired, loginController.whoami);
 
 export default router;
