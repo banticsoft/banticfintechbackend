@@ -30,20 +30,21 @@ const AutenticarUsuario = async(req, res)=>{
             //throw new Error("Datos incorrectos o token vencido");    
             console.log("No tiene data")    
             return res.status(400).send(['Datos incorrectos o token vencido']);
-        }
-
-
-        res.cookie("token", respuesta.data.token);
-        console.log("el token tiene: ");
-        console.log(respuesta.data.token);
+        }        
 
         //whoami
         const respuestaWhoami = await whoamiByToken(respuesta.data.token);
+        console.log(respuestaWhoami)
         let { codError } = respuestaWhoami;
 
-        /* if (codError == "0"){
-            return res.json({ ...respuestaWhoami });                     
-        } */
+        if (codError == "1"){
+            // return res.json({ ...respuestaWhoami });
+            return res.status(400).send(['Servicio deshabilitado temporalmente']);                   
+        }
+        
+        res.cookie("token", respuesta.data.token);
+        console.log("el token tiene: ");
+        console.log(respuesta.data.token);
 
         return res.json({ ...respuestaWhoami }); 
     } catch (error) {  
@@ -66,7 +67,7 @@ const whoami = async(req, res) => {
             token
         }        
         
-        const API = 'https://banticfintechapi.azurewebsites.net'
+        const API = process.env.API_MIDDLEWARE
         const respuesta = await axios.post(`${API}/api/MixQR/getFBUserData`, usuario, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -97,7 +98,7 @@ const whoamiByToken = async(token) => {
             token
         }       
         
-        const API = 'https://banticfintechapi.azurewebsites.net'
+        const API = process.env.API_MIDDLEWARE
         const respuesta = await axios.post(`${API}/api/MixQR/getFBUserData`, usuario, {
             headers: {
                 Authorization: `Bearer ${token}`

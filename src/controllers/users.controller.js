@@ -118,7 +118,7 @@ const generarQR = async(req, res) => {
             //pantalla de configuracion
         }
 
-        const API = 'https://banticfintechapi.azurewebsites.net'
+        const API = process.env.API_MIDDLEWARE
         const respuesta = await axios.post(`${API}/api/MixQR//getQRImage`, usuario, {
             headers: {
                  Authorization: `Bearer ${token}`
@@ -155,7 +155,7 @@ const verificarQR = async(req, res) => {
             "additionalData":"notificado" 
         }    
 
-        const API = 'https://banticfintechapi.azurewebsites.net'
+        const API = process.env.API_MIDDLEWARE
         const respuestaReceiveNotificationBNB = await axios.post(`${API}/api/MixQR/ReceiveNotificationBNB`, inputReceiveNotificationBNB, {
             headers: {
                  Authorization: `Bearer ${token}`

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API = 'https://banticfintechapi.azurewebsites.net'
+// const API = 'https://banticfintechapi.azurewebsites.net'
+const API = process.env.API_MIDDLEWARE
 
 export const loginRequest = user => axios.post(`${API}/api/MixQR/getFBToken`, user);
 

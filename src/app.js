@@ -14,7 +14,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin: ['http://127.0.0.1:5173', 'http://localhost:5173', 'http://localhost:3000'],
+    origin: [process.env.ORIGIN_CORS],
     //origin: '*', 
     credentials: true //tambien vas a poder establecer las cookies
 }));
