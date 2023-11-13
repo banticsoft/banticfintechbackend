@@ -1,2 +1,12 @@
 node_modules
 .env
+
+#production
+.github
+src
+.babelrc
+.dockerignore
+.env.example
+Dockerfile
+package-lock.json
+package.json
