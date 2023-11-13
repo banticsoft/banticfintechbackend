@@ -12,9 +12,11 @@ import cors from 'cors'
 dotenv.config();
 
 const app = express();
+const ORIGIN_CORS_FRONTEND = 'https://frontendbf.banticapps.com/'
+const DOMINIO = process.env.ORIGIN_CORS || ORIGIN_CORS_FRONTEND
 
 app.use(cors({
-    origin: [process.env.ORIGIN_CORS],
+    origin: [DOMINIO],
     //origin: '*', 
     credentials: true //tambien vas a poder establecer las cookies
 }));

@@ -67,7 +67,7 @@ const whoami = async(req, res) => {
             token
         }        
         
-        const API = process.env.API_MIDDLEWARE
+        const API = process.env.API_MIDDLEWARE || 'https://banticfintechapi.azurewebsites.net'
         const respuesta = await axios.post(`${API}/api/MixQR/getFBUserData`, usuario, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -98,7 +98,7 @@ const whoamiByToken = async(token) => {
             token
         }       
         
-        const API = process.env.API_MIDDLEWARE
+        const API = process.env.API_MIDDLEWARE || 'https://banticfintechapi.azurewebsites.net'
         const respuesta = await axios.post(`${API}/api/MixQR/getFBUserData`, usuario, {
             headers: {
                 Authorization: `Bearer ${token}`
