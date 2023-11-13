@@ -2,7 +2,6 @@ node_modules
 .env
 
 #production
-.github
 src
 .babelrc
 .dockerignore
@@ -10,3 +9,4 @@ src
 Dockerfile
 package-lock.json
 package.json
+.github
