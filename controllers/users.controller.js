@@ -362,7 +362,7 @@ var verificarQR = /*#__PURE__*/function () {
     return _ref7.apply(this, arguments);
   };
 }();
-var methods = {
+var methods = exports.methods = {
   getAllUsers: getAllUsers,
   getOneUser: getOneUser,
   createNewUser: createNewUser,
@@ -371,4 +371,3 @@ var methods = {
   generarQR: generarQR,
   verificarQR: verificarQR
 };
-exports.methods = methods;

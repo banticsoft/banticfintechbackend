@@ -12,5 +12,4 @@ var _validateToken = require("./../middlewares/validateToken.js");
 var router = (0, _express.Router)();
 router.post("/signin", (0, _validatorMiddleware.validateSchema)(_auth.loginSchema), _login.methods.AutenticarUsuario);
 router.post("/whoami", _validateToken.authRequired, _login.methods.whoami);
-var _default = router;
-exports["default"] = _default;
+var _default = exports["default"] = router;

@@ -7,7 +7,7 @@ exports.authRequired = void 0;
 //import jwt from 'jsonwebtoken';
 //import { TOKEN_SECRET } from './../config.js'
 
-var authRequired = function authRequired(req, res, next) {
+var authRequired = exports.authRequired = function authRequired(req, res, next) {
   //const token = req.headers.cookie;
   var token = req.cookies.token;
   if (!token) return res.status(401).json({
@@ -15,4 +15,3 @@ var authRequired = function authRequired(req, res, next) {
   });
   next();
 };
-exports.authRequired = authRequired;

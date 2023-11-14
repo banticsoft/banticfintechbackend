@@ -50,5 +50,4 @@ app.use(function (req, res, next) {
     message: "ruta no encontrada"
   });
 });
-var _default = app;
-exports["default"] = _default;
+var _default = exports["default"] = app;

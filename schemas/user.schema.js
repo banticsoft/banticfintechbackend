@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.userGenerarQRSchema = void 0;
 var _zod = require("zod");
-var userGenerarQRSchema = _zod.z.object({
+var userGenerarQRSchema = exports.userGenerarQRSchema = _zod.z.object({
   glosa: _zod.z.string({
     required_error: "La glosa es requerida"
   }),
@@ -16,4 +16,3 @@ var userGenerarQRSchema = _zod.z.object({
     message: "El monto debe ser mayor o igual a 1"
   })
 });
-exports.userGenerarQRSchema = userGenerarQRSchema;

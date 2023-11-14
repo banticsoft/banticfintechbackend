@@ -17,5 +17,4 @@ router.get("/:id", _users.methods.getOneUser);
 router.post("/", _users.methods.createNewUser);
 router.put("/:id", _users.methods.updateOneUser);
 router["delete"]("/:id", _users.methods.deleteOneUser);
-var _default = router;
-exports["default"] = _default;
+var _default = exports["default"] = router;

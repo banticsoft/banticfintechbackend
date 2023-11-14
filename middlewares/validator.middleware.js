@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.validateSchema = void 0;
-var validateSchema = function validateSchema(schema) {
+var validateSchema = exports.validateSchema = function validateSchema(schema) {
   return function (req, res, next) {
     try {
       schema.parse(req.body);
@@ -16,4 +16,3 @@ var validateSchema = function validateSchema(schema) {
     }
   };
 };
-exports.validateSchema = validateSchema;

@@ -14,5 +14,4 @@ router.post("/verificar", _validateToken.authRequired, _cobranza.methods.Verific
 router.get("/getAllQR", _validateToken.authRequired, _cobranza.methods.getAllQRByUser);
 //router.get("/getAllQR", authRequired, cobranzaController.getAllQRByUser);
 //router.post("/generarQR",authRequired, validateSchema(userGenerarQRSchema), (usersController.generarQR));
-var _default = router;
-exports["default"] = _default;
+var _default = exports["default"] = router;

@@ -9,19 +9,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 // const API = 'https://banticfintechapi.azurewebsites.net'
 var API_MIDDLEWARE_SERVER = 'https://banticfintechapi.azurewebsites.net';
 var API = process.env.API_MIDDLEWARE || API_MIDDLEWARE_SERVER;
-var loginRequest = function loginRequest(user) {
+var loginRequest = exports.loginRequest = function loginRequest(user) {
   return _axios["default"].post("".concat(API, "/api/MixQR/getFBToken"), user);
 };
-exports.loginRequest = loginRequest;
-var whoamiRequest = function whoamiRequest(user) {
+var whoamiRequest = exports.whoamiRequest = function whoamiRequest(user) {
   return _axios["default"].post("".concat(API, "/api/MixQR/getFBUserData"), user);
 };
-exports.whoamiRequest = whoamiRequest;
-var generarQRRequest = function generarQRRequest(user) {
+var generarQRRequest = exports.generarQRRequest = function generarQRRequest(user) {
   return _axios["default"].post("".concat(API, "/api/MixQR//getQRImage"), user);
 };
-exports.generarQRRequest = generarQRRequest;
-var logoutRequest = function logoutRequest() {
+var logoutRequest = exports.logoutRequest = function logoutRequest() {
   return _axios["default"].post("/logout");
 };
-exports.logoutRequest = logoutRequest;
