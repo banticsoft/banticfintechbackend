@@ -46,38 +46,30 @@ var getAllQRByUser = /*#__PURE__*/function () {
             message: "Peticion erronea. Por favor debe definir todos los campos"
           }));
         case 13:
-          return _context.abrupt("return", res.json({
-            status: "ok",
-            data: {
-              userName: userName,
-              fkCustomer: fkCustomer,
-              typeRequest: typeRequest
-            }
-          }));
-        case 16:
+          _context.next = 15;
+          return (0, _database.getConnection)();
+        case 15:
           pool = _context.sent;
-          return _context.abrupt("return", res.json({
-            status: "ok",
-            data: pool
-          }));
-        case 20:
+          _context.next = 18;
+          return pool.request().input('userName', _database.sql.VarChar, userName).input('fkCustomer', fkCustomer).input('typeRequest', _database.sql.VarChar, typeRequest).query(_database.fqueries.getAllQRByUser);
+        case 18:
           result = _context.sent;
           res.json({
             status: "ok",
             data: result.recordset
           });
-          _context.next = 28;
+          _context.next = 26;
           break;
-        case 24:
-          _context.prev = 24;
+        case 22:
+          _context.prev = 22;
           _context.t0 = _context["catch"](0);
           res.status(500);
           res.send(_context.t0.message);
-        case 28:
+        case 26:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 24]]);
+    }, _callee, null, [[0, 22]]);
   }));
   return function getAllQRByUser(_x, _x2) {
     return _ref.apply(this, arguments);
