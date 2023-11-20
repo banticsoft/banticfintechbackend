@@ -309,7 +309,8 @@ var verificarQR = /*#__PURE__*/function () {
             "sourceBankId": 1,
             "originName": "JUAN PEREZ",
             "voucherId": "1258s85s4ba",
-            "transactionDateTime": "2023-08-24T02:03:02.684Z",
+            // "transactionDateTime":"2023-08-24T02:03:02.684Z",
+            "transactionDateTime": "19/10/2023 17:30:15",
             "additionalData": "notificado"
           };
           API = process.env.API_MIDDLEWARE || 'https://banticfintechapi.azurewebsites.net';
