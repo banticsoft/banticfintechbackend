@@ -251,7 +251,7 @@ var generarQR = /*#__PURE__*/function () {
             "singleUse": true,
             //por defecto
             //"expirationDate": dayjs.utc(new Date()).format("YYYY/MM/DD"), //fecha por defecto de hoy (por lo pronto 1 mes)
-            "expirationDate": "2023-11-30",
+            "expirationDate": "2024-12-30",
             //fecha por defecto de hoy (por lo pronto 1 mes)
             "clientNote": glosa,
             "codBank": 1,
